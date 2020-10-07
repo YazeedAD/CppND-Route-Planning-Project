@@ -50,23 +50,32 @@ float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
 
 // DONE:
 void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
-    cout << "++++ Debug 1 \n";
 
-//    current_node->FindNeighbors();
-//    int neighbors_count = current_node->neighbors.size();
-//
-//    cout << "++++ Debug \n";
-//    cout << neighbors_count;
-//    cout << "++++ Debug \n";
-//
-//    for (int i = 0; i < neighbors_count; i++) {
-//
-//        current_node->neighbors[i]->parent = current_node;
-//        current_node->neighbors[i]->h_value = CalculateHValue(current_node);
-//        current_node->neighbors[i]->g_value = current_node->neighbors[i]->distance(*current_node);
-//        current_node->neighbors[i]->visited = true;
+    cout << "++++ Debug 1 \n";
+    current_node->FindNeighbors();
+    int neighbors_count = current_node->neighbors.size();
+    cout << "++++ Debug 2 \n";
+    cout << neighbors_count << "\n";
+    cout << "++++ Debug 3 \n";
+    cout << "\n\n\n\n\n";
+
+    for (int i = 0; i < neighbors_count; i++) {
+        cout << i <<" \n";
+
+        current_node->neighbors[i]->parent = current_node;
+        cout << "++++ Debug 5 \n";
+
+        current_node->neighbors[i]->h_value = CalculateHValue(current_node);
+        cout << CalculateHValue(current_node) << "     ++++ Debug 6 \n";
+
+        current_node->neighbors[i]->g_value = current_node->neighbors[i]->distance(*current_node);
+        cout << current_node->neighbors[i]->distance(*current_node) << "     ++++ Debug 7 \n";
+
+        current_node->neighbors[i]->visited = true;
+        cout << current_node->neighbors[i]->visited << "    ++++ Debug 8 \n";
+
 //        open_list[i] = current_node->neighbors[i];
-//    }
+    }
 
 
 }
