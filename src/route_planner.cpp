@@ -23,6 +23,8 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
     RoutePlanner::start_node = &m_Model.FindClosestNode(start_x, start_y);
     RoutePlanner::end_node = &m_Model.FindClosestNode(end_x, end_y);
 
+    cout << start_node->x << " , " << start_node->y << "  !!  xy \n";
+
 }
 
 
@@ -57,24 +59,29 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
     cout << "++++ Debug 2 \n";
     cout << neighbors_count << "\n";
     cout << "++++ Debug 3 \n";
+
+    cout << current_node->x << " , " << current_node->y << "    xy \n";
+    cout << CalculateHValue(current_node) << "    CalculateHValue \n";
+
     cout << "\n\n\n\n\n";
 
     for (int i = 0; i < neighbors_count; i++) {
         cout << i <<" \n";
 
         current_node->neighbors[i]->parent = current_node;
-        cout << "++++ Debug 5 \n";
 
-        current_node->neighbors[i]->h_value = CalculateHValue(current_node);
-        cout << CalculateHValue(current_node) << "     ++++ Debug 6 \n";
+        current_node->neighbors[i]->h_value = CalculateHValue(current_node->neighbors[i]);
+        cout << CalculateHValue(current_node) << "    CalculateHValue \n";
 
-        current_node->neighbors[i]->g_value = current_node->neighbors[i]->distance(*current_node);
-        cout << current_node->neighbors[i]->distance(*current_node) << "     ++++ Debug 7 \n";
+        current_node->neighbors[i]->g_value = current_node->neighbors[i]->distance(*current_node) ;
+        cout << current_node->neighbors[i]->distance(*current_node) << "     distance \n";
 
         current_node->neighbors[i]->visited = true;
-        cout << current_node->neighbors[i]->visited << "    ++++ Debug 8 \n";
+        cout << current_node->neighbors[i]->visited << "    visited \n";
+        cout << current_node->x << " , " << current_node->y << "    xy \n";
 
-//        open_list[i] = current_node->neighbors[i];
+//
+////        open_list[i] = current_node->neighbors[i];
     }
 
 
