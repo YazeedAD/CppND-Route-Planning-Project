@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "route_model.h"
+#include "utils.h"
 
 
 class RoutePlanner {
