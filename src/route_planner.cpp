@@ -1,6 +1,14 @@
 #include "route_planner.h"
 #include <algorithm>
 
+bool Compare(const RouteModel::Node* node_1, const RouteModel::Node* node_2)
+{
+    float f1 = node_1->g_value + node_1->h_value;
+    float f2 = node_2->g_value + node_2->h_value;
+
+    return f1 > f2;
+}
+
 RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, float end_x, float end_y) : m_Model(model) {
     // Convert inputs to percentage:
     start_x *= 0.01;
@@ -26,7 +34,10 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
 // DONE: CalculateHValue
 float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
     // check
-    return (node->distance(*node));
+    cout << "++++ Debug \n";
+    cout << node->distance(*end_node) << "\n";
+
+    return (node->distance(*end_node));
 }
 
 
@@ -39,18 +50,23 @@ float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
 
 // DONE:
 void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
+    cout << "++++ Debug 1 \n";
 
-    current_node->FindNeighbors();
-    int neighbors_count = current_node->neighbors.size();
-
-    for (int i = 0; i < neighbors_count; i++) {
-
-        current_node->neighbors[i]->parent = current_node;
-        current_node->neighbors[i]->h_value = CalculateHValue(current_node);
-        current_node->neighbors[i]->g_value = current_node->neighbors[i]->distance(*current_node);
-        current_node->neighbors[i]->visited = true;
-        open_list[i] = current_node->neighbors[i];
-    }
+//    current_node->FindNeighbors();
+//    int neighbors_count = current_node->neighbors.size();
+//
+//    cout << "++++ Debug \n";
+//    cout << neighbors_count;
+//    cout << "++++ Debug \n";
+//
+//    for (int i = 0; i < neighbors_count; i++) {
+//
+//        current_node->neighbors[i]->parent = current_node;
+//        current_node->neighbors[i]->h_value = CalculateHValue(current_node);
+//        current_node->neighbors[i]->g_value = current_node->neighbors[i]->distance(*current_node);
+//        current_node->neighbors[i]->visited = true;
+//        open_list[i] = current_node->neighbors[i];
+//    }
 
 
 }
