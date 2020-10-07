@@ -1,7 +1,7 @@
 #include "route_planner.h"
 #include <algorithm>
 
-RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, float end_x, float end_y): m_Model(model) {
+RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, float end_x, float end_y) : m_Model(model) {
     // Convert inputs to percentage:
     start_x *= 0.01;
     start_y *= 0.01;
@@ -11,6 +11,10 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
     // TODO 2: Use the m_Model.FindClosestNode method to find the closest nodes to the starting and ending coordinates.
     // Store the nodes you find in the RoutePlanner's start_node and end_node attributes.
 
+    // DONE: find the closest nodes
+    RoutePlanner::start_node = &m_Model.FindClosestNode(start_x, start_y);
+    RoutePlanner::end_node = &m_Model.FindClosestNode(end_x, end_y);
+
 }
 
 
@@ -19,8 +23,10 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
 // - You can use the distance to the end_node for the h value.
 // - Node objects have a distance method to determine the distance to another node.
 
+// DONE: CalculateHValue
 float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
-
+    // check
+    return (node->distance(*node));
 }
 
 
@@ -31,7 +37,21 @@ float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
 // - Use CalculateHValue below to implement the h-Value calculation.
 // - For each node in current_node.neighbors, add the neighbor to open_list and set the node's visited attribute to true.
 
+// DONE:
 void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
+
+    current_node->FindNeighbors();
+    int neighbors_count = current_node->neighbors.size();
+
+    for (int i = 0; i < neighbors_count; i++) {
+
+        current_node->neighbors[i]->parent = current_node;
+        current_node->neighbors[i]->h_value = CalculateHValue(current_node);
+        current_node->neighbors[i]->g_value = current_node->neighbors[i]->distance(*current_node);
+        current_node->neighbors[i]->visited = true;
+        open_list[i] = current_node->neighbors[i];
+    }
+
 
 }
 
