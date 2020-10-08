@@ -61,15 +61,17 @@ int main(int argc, const char **argv)
     // RoutePlanner object below in place of 10, 10, 90, 90.
 
     // DONE: declaration
-    float start_x;
-    float start_y;
-    float end_x;
-    float end_y;
+    float start_x = 10;
+    float start_y = 10;
+    float end_x = 50;
+    float end_y = 50;
 
     bool rc;
     // DONE: user input
-    std::cout << "Enter input coordination (min:0,max:100)  \n";
-    std::cin >> start_x >> start_y >> end_x >> end_y;
+    std::cout << "Enter input coordination  (min:0,max:100)  \n";
+    std::cout << "start_x, start_y, end_x, end_y   \n";
+
+    //std::cin >> start_x >> start_y >> end_x >> end_y;
 
     rc = inRange(start_x,0,100) && inRange(start_y,0,100) && inRange(end_x,0,100) && inRange(end_y,0,100);
     // Done: check user input
